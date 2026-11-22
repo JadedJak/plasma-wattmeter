@@ -1,0 +1,13 @@
+{
+    "KPlugin": {
+        "Id": "local.wattmeter",
+        "Name": "Watt Meter",
+        "Description": "Live battery charge/discharge wattage, system power draw, USB-PD charger details and battery health",
+        "Icon": "battery-080-charging",
+        "Category": "System Information",
+        "License": "GPL-2.0-or-later",
+        "Version": "1.0"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
