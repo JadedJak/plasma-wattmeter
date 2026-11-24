@@ -7,7 +7,9 @@ import org.kde.kcmutils as KCM
 KCM.SimpleKCM {
     property alias cfg_panelMetric: metric.currentIndex
     property alias cfg_showIcon: icon.checked
+    property alias cfg_showChargeBar: chargeBar.checked
     property alias cfg_interval: interval.value
+    property alias cfg_profileInPanel: profile.currentIndex
     property string cfg_sessions
     property string cfg_sessionsDefault
 
@@ -21,6 +23,15 @@ KCM.SimpleKCM {
             id: icon
             Kirigami.FormData.label: i18n("Icon:")
             text: i18n("Show charging bolt")
+        }
+        QQC2.CheckBox {
+            id: chargeBar
+            text: i18n("Show charge level bar under the readout")
+        }
+        QQC2.ComboBox {
+            id: profile
+            Kirigami.FormData.label: i18n("Power profile icon:")
+            model: [i18n("Never"), i18n("When not Balanced"), i18n("Always")]
         }
         RowLayout {
             Kirigami.FormData.label: i18n("Update every:")

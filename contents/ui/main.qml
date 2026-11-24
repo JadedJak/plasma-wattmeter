@@ -34,6 +34,7 @@ PlasmoidItem {
     property var pdos: []
     property string pdRevision: ""
     property string portLocation: ""
+    property string powerProfile: ""     // "power-saver" | "balanced" | "performance" | "" if unknown
     property var historyBattery: []
     property var historySystem: []
     property var session: null
@@ -53,6 +54,17 @@ PlasmoidItem {
         return NaN;
     }
     readonly property real negotiatedW: contractV * contractA
+    // Same icons and labels as Plasma's battery applet (powerdevil batterymonitor)
+    readonly property string profileIcon: powerProfile === "power-saver" ? "battery-profile-powersave-symbolic"
+                                        : powerProfile === "balanced" ? "speedometer"
+                                        : powerProfile === "performance" ? "battery-profile-performance-symbolic"
+                                        : ""
+    readonly property string profileName: powerProfile === "power-saver" ? i18n("Power Save")
+                                        : powerProfile === "balanced" ? i18n("Balanced")
+                                        : powerProfile === "performance" ? i18n("Performance")
+                                        : powerProfile
+    readonly property bool profileInPanel: profileIcon !== "" && (Plasmoid.configuration.profileInPanel === 2
+                                           || (Plasmoid.configuration.profileInPanel === 1 && powerProfile !== "balanced"))
     readonly property string portLabel: {
         if (!portLocation) return "—";
         const parts = portLocation.split(" ");
@@ -137,6 +149,7 @@ PlasmoidItem {
         const b = s.bat;
         if (!b) return;
 
+        powerProfile = s.profile || "";
         const st = b.status || "Unknown";
         status = st;
         percent = b.capacity !== null ? b.capacity : 0;

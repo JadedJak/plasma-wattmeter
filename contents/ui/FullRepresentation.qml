@@ -113,6 +113,20 @@ Item {
                     text: m.subline
                     opacity: 0.7
                 }
+                RowLayout {
+                    visible: m.profileIcon !== ""
+                    spacing: Kirigami.Units.smallSpacing
+                    Kirigami.Icon {
+                        source: m.profileIcon
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                        opacity: 0.7
+                    }
+                    PlasmaComponents.Label {
+                        text: i18n("Power profile: %1", m.profileName)
+                        opacity: 0.7
+                    }
+                }
             }
             Item { Layout.fillWidth: true }
             ColumnLayout {

@@ -83,6 +83,16 @@ for l in /sys/class/hwmon/hwmon*/temp*_label; do
 done
 printf ',"temp":%s' "$temp"
 
+# --- active power profile (power-profiles-daemon / tuned-ppd D-Bus API) --------
+prof=null
+if command -v busctl >/dev/null 2>&1; then
+    v=$(busctl --system --timeout=1 get-property org.freedesktop.UPower.PowerProfiles \
+        /org/freedesktop/UPower/PowerProfiles org.freedesktop.UPower.PowerProfiles \
+        ActiveProfile 2>/dev/null)
+    v=$(printf '%s' "${v#s }" | tr -dc 'a-z-')
+    [ -n "$v" ] && prof="\"$v\""
+fi
+
 # --- whole-platform energy counter (Intel RAPL psys) --------------------------
 psys=null
 pmax=null
@@ -92,4 +102,4 @@ for r in /sys/class/powercap/intel-rapl:*; do
     pmax=$(num "$r/max_energy_range_uj")
     break
 done
-printf ',"psys":%s,"psys_max":%s,"t":%s}\n' "$psys" "$pmax" "$(date +%s%3N)"
+printf ',"psys":%s,"psys_max":%s,"profile":%s,"t":%s}\n' "$psys" "$pmax" "$prof" "$(date +%s%3N)"
