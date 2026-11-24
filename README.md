@@ -7,9 +7,20 @@ whole-system power draw, USB-PD charger details and battery health.
 <p align="center"><img src="screenshots/panel.png" width="420" alt="Panel readouts: charging, discharging, battery + system"></p>
 
 The panel shows a bolt and the live rate (`+6.1 W` while charging, `−8.3 W` on battery).
+Next to the bolt, an icon shows the active power profile when it isn't Balanced (the
+same icons as Plasma's battery applet), and a thin bar underneath shows the charge
+level: green while charging, red at 20% or less on battery. The readout keeps a
+fixed width, so it doesn't resize when the icon appears or the number changes.
+
+<p align="center"><img src="screenshots/panel-profile.png" width="700" alt="Panel readouts: Power Save on battery, Balanced, charging, charging on Power Save, Performance at low battery"></p>
+
+Both can be changed in the widget's settings (**Power profile icon:** Never / When not
+Balanced / Always, and **Show charge level bar under the readout**).
+
 Click it for a popup with:
 
 - The live battery rate, time to full or time left, and charge level
+- The active power profile
 - Tiles for the charger (rated W, negotiated V × A), the system draw and the battery rate
 - A graph of battery and system wattage over the last 10 minutes
 - Battery health, cycle count, temperature, capacity vs. design, and voltage/current
